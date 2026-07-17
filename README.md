@@ -22,13 +22,6 @@ A modern, local-first web app for saving, organizing, searching and managing you
 - **Accessible** — semantic HTML, ARIA labels, visible focus states, skip link, reduced-motion support
 - **Persistent** — everything (prompts, theme, recently-copied) is stored in `localStorage`; nothing leaves your browser
 
-## Screenshots
-
-> _Add screenshots here once you've run the app locally:_
-> - `assets/images/screenshot-home-dark.png`
-> - `assets/images/screenshot-home-light.png`
-> - `assets/images/screenshot-modal.png`
-
 ## Folder Structure
 
 ```
