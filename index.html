@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptVault AI — Organize Your AI Prompts Like a Pro</title>
+  <meta name="description" content="Save, organize, search and manage your AI prompts in one clean, premium workspace." />
+
+  <!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (prompt text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="dark">
+
+  <!-- Skip link for keyboard/screen-reader users -->
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- ============ TOP NAVIGATION ============ -->
+  <header class="topbar" role="banner">
+    <div class="topbar__inner">
+
+      <a class="brand" href="#" aria-label="PromptVault AI home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4H20V16L14 22V4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M4 4H14V16H4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" opacity="0.5"/>
+            <circle cx="17" cy="9" r="1.3" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand__name">PromptVault <span class="brand__accent">AI</span></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNavList" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+        <ul class="main-nav__list" id="mainNavList">
+          <li><a href="#" class="main-nav__link is-active" data-view="home">Home</a></li>
+          <li><a href="#" class="main-nav__link" data-view="favorites">Favorites</a></li>
+          <li><a href="#" class="main-nav__link" data-view="about">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="topbar__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="true" title="Toggle theme (dark/light)">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5V5M12 19V21.5M4.2 4.2L6 6M18 18L19.8 19.8M2.5 12H5M19 12H21.5M4.2 19.8L6 18M18 6L19.8 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn btn--primary btn--icon-left" id="openAddPromptTop" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Add Prompt
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ============ HOME VIEW ============ -->
+    <section class="view" id="view-home" data-view-panel="home">
+
+      <!-- ---------- HERO ---------- -->
+      <section class="hero" aria-labelledby="heroHeading">
+        <div class="hero__inner">
+          <p class="eyebrow">Your prompt library, finally organized</p>
+          <h1 class="hero__heading" id="heroHeading">Organize Your AI Prompts <span class="hero__heading-accent">Like a Pro</span></h1>
+          <p class="hero__subtext">
+            Save the prompts that work, tag them, search them in an instant, and reuse them across
+            ChatGPT, Claude, Gemini and every model you write for — all stored privately in your browser.
+          </p>
+
+          <!-- Search -->
+          <div class="search-bar" role="search">
+            <svg class="search-bar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <label for="searchInput" class="sr-only">Search prompts by title, content, tag or category</label>
+            <input type="search" id="searchInput" class="search-bar__input" placeholder="Search prompts, tags, categories…" autocomplete="off" />
+            <kbd class="search-bar__kbd">Ctrl K</kbd>
+          </div>
+
+          <!-- Category filter pills -->
+          <div class="category-bar" id="categoryBar" role="group" aria-label="Filter by category">
+            <!-- Populated by JS: All, ChatGPT, Claude, Gemini, Coding, Writing, Business, Productivity, Marketing, Interview -->
+          </div>
+
+          <button class="btn btn--primary btn--large" id="openAddPromptHero" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Add Prompt
+          </button>
+        </div>
+      </section>
+
+      <!-- ---------- STATISTICS ---------- -->
+      <section class="stats" aria-label="Your prompt statistics">
+        <div class="stats__grid">
+          <div class="stat-card" id="statTotal">
+            <span class="stat-card__label">Total Prompts</span>
+            <span class="stat-card__value" data-stat="total">0</span>
+          </div>
+          <div class="stat-card" id="statFavorites">
+            <span class="stat-card__label">Favorite Prompts</span>
+            <span class="stat-card__value" data-stat="favorites">0</span>
+          </div>
+          <div class="stat-card" id="statCategories">
+            <span class="stat-card__label">Categories</span>
+            <span class="stat-card__value" data-stat="categories">0</span>
+          </div>
+          <div class="stat-card stat-card--wide" id="statTopPrompt">
+            <span class="stat-card__label">Most Copied Prompt</span>
+            <span class="stat-card__value stat-card__value--text" data-stat="topPrompt">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- TOOLBAR: tags / sort / random / import-export ---------- -->
+      <section class="toolbar" aria-label="Prompt tools">
+        <div class="toolbar__tags" id="tagCloud" aria-label="Filter by tag"></div>
+
+        <div class="toolbar__actions">
+          <button class="btn btn--ghost btn--small" id="randomPromptBtn" type="button" title="Show a random prompt">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><circle cx="8.5" cy="8.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.1" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.1" fill="currentColor"/><circle cx="12" cy="12" r="1.1" fill="currentColor"/></svg>
+            Random
+          </button>
+          <label class="btn btn--ghost btn--small" for="importFile" title="Import prompts.json">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Import
+            <input type="file" id="importFile" accept="application/json" class="sr-only" />
+          </label>
+          <button class="btn btn--ghost btn--small" id="exportBtn" type="button" title="Export prompts.json">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 15V3M12 3L8 7M12 3L16 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Export
+          </button>
+
+          <label class="sort-select">
+            <span class="sr-only">Sort prompts</span>
+            <select id="sortSelect">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="az">Title A–Z</option>
+              <option value="za">Title Z–A</option>
+              <option value="mostCopied">Most copied</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---------- RECENTLY COPIED ---------- -->
+      <section class="recent-strip" id="recentStrip" aria-label="Recently copied prompts" hidden>
+        <h2 class="section-label">Recently Copied</h2>
+        <div class="recent-strip__list" id="recentStripList"></div>
+      </section>
+
+      <!-- ---------- PROMPT GRID ---------- -->
+      <section class="prompt-section" aria-labelledby="promptSectionHeading">
+        <div class="prompt-section__header">
+          <h2 id="promptSectionHeading" class="section-label">All Prompts</h2>
+          <span class="prompt-section__count" id="resultsCount"></span>
+        </div>
+
+        <div class="prompt-grid" id="promptGrid" role="list" aria-live="polite">
+          <!-- Prompt cards injected by JS -->
+        </div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4H20V16L14 22V4" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          <h3>No prompts found</h3>
+          <p>Try a different search term, or clear your filters to see everything in your vault.</p>
+          <button class="btn btn--ghost btn--small" id="clearFiltersBtn" type="button">Clear filters</button>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- ============ FAVORITES VIEW ============ -->
+    <section class="view" id="view-favorites" data-view-panel="favorites" hidden>
+      <div class="page-header">
+        <h1>Favorites</h1>
+        <p>Every prompt you've starred, in one place.</p>
+      </div>
+      <div class="prompt-grid" id="favoritesGrid" role="list"></div>
+      <div class="empty-state" id="favoritesEmptyState" hidden>
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.5S3.5 15.6 3.5 9.6C3.5 6.5 5.9 4.3 8.6 4.3C10.3 4.3 11.6 5.1 12 6.2C12.4 5.1 13.7 4.3 15.4 4.3C18.1 4.3 20.5 6.5 20.5 9.6C20.5 15.6 12 20.5 12 20.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <h3>No favorites yet</h3>
+        <p>Tap the heart on any prompt to pin it here for quick access.</p>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT VIEW ============ -->
+    <section class="view" id="view-about" data-view-panel="about" hidden>
+      <div class="page-header">
+        <h1>About PromptVault AI</h1>
+        <p>A private, local-first workspace for the prompts you actually reuse.</p>
+      </div>
+      <div class="about-content">
+        <p>PromptVault AI keeps every prompt you save on this device — nothing is uploaded, nothing is tracked. Organize by category and tag, search instantly, and export a backup whenever you like.</p>
+        <ul class="about-list">
+          <li>Built with plain HTML, CSS and JavaScript — no frameworks, no dependencies.</li>
+          <li>All data lives in your browser's LocalStorage.</li>
+          <li>Keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>K</kbd> to search, <kbd>Ctrl</kbd>+<kbd>N</kbd> to add a prompt.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ ADD / EDIT PROMPT MODAL ============ -->
+  <div class="modal-overlay" id="promptModalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="promptModalTitle" id="promptModal">
+      <div class="modal__header">
+        <h2 id="promptModalTitle">Add Prompt</h2>
+        <button class="icon-btn" id="closeModalBtn" type="button" aria-label="Close dialog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <form class="modal__form" id="promptForm" novalidate>
+        <input type="hidden" id="promptId" />
+
+        <div class="form-field">
+          <label for="promptTitle">Title <span class="required">*</span></label>
+          <input type="text" id="promptTitle" name="title" placeholder="e.g. Cold Outreach Email" required maxlength="80" />
+          <span class="form-error" id="promptTitleError" role="alert"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="promptCategory">Category <span class="required">*</span></label>
+            <select id="promptCategory" name="category" required>
+              <option value="" disabled selected>Choose a category</option>
+              <option value="ChatGPT">ChatGPT</option>
+              <option value="Claude">Claude</option>
+              <option value="Gemini">Gemini</option>
+              <option value="Coding">Coding</option>
+              <option value="Writing">Writing</option>
+              <option value="Business">Business</option>
+              <option value="Productivity">Productivity</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Interview">Interview</option>
+            </select>
+            <span class="form-error" id="promptCategoryError" role="alert"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="promptTags">Tags</label>
+            <input type="text" id="promptTags" name="tags" placeholder="comma, separated, tags" />
+            <span class="form-hint">Separate tags with commas</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="promptText">Prompt <span class="required">*</span></label>
+          <textarea id="promptText" name="prompt" rows="7" placeholder="Write or paste your prompt here…" required maxlength="4000"></textarea>
+          <span class="form-error" id="promptTextError" role="alert"></span>
+          <span class="char-count" id="promptCharCount">0 / 4000</span>
+        </div>
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--ghost" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="savePromptBtn">Save Prompt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ DELETE CONFIRM MODAL ============ -->
+  <div class="modal-overlay" id="confirmModalOverlay" hidden>
+    <div class="modal modal--small" role="alertdialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+      <div class="modal__header">
+        <h2 id="confirmModalTitle">Delete this prompt?</h2>
+      </div>
+      <p class="modal__body-text">This can't be undone. The prompt will be permanently removed from your vault.</p>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--ghost" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PROMPT DETAIL / RANDOM MODAL ============ -->
+  <div class="modal-overlay" id="detailModalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle" id="detailModal">
+      <div class="modal__header">
+        <h2 id="detailModalTitle">Prompt</h2>
+        <button class="icon-btn" id="closeDetailModalBtn" type="button" aria-label="Close dialog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="detailModalBody"></div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--ghost" id="detailRerollBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Another random
+        </button>
+        <button type="button" class="btn btn--primary" id="detailCopyBtn">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ============ MOBILE FILTER SIDEBAR SCRIM ============ -->
+  <div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+
+  <script src="data.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
